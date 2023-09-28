@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Listing Page</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        /* Header styles */
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        /* User listing container */
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        /* User table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* User table row hover effect */
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .custom-button {
+		    background-color: #007bff; /* Blue background color */
+		    color: #fff; /* White text color */
+		    border: none; /* Remove button border */
+		    padding: 10px 20px; /* Add padding for better visual appearance */
+		    font-size: 16px; /* Font size */
+		    cursor: pointer; /* Change cursor to pointer on hover */
+		    border-radius: 5px; /* Rounded corners */
+		    text-decoration: none; /* Remove underlines for links */
+		}
+		
+		/* Hover effect */
+		.custom-button:hover {
+		    background-color: #0056b3; /* Darker blue on hover */
+		}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>User Listing</h1>
+    </header>
+
+    <div class="container">
+    	<form th:action="@{userListing}" method="get">
+	    	<input id="txtSearch" type="text" name="keyword">
+	    	<button type="submit">Go</button>
+	    </form>
+        <table>
+            <thead>
+                <tr>
+                    <th id="firstNameHeader"><a th:href="@{'/userListing/firstName?sortDir=' + ${reverseSortDir}}">First Name</a></th>
+                    <th id="lastNameHeader"><a th:href="@{'/userListing/lastName?sortDir=' + ${reverseSortDir}}">Last Name</a></th>
+                    <th id="emailHeader"><a th:href="@{'/userListing/email?sortDir=' + ${reverseSortDir}}">Email</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${users}">
+	                <td th:text="${user.firstName}"></td>
+	                <td th:text="${user.lastName}"></td>
+	                <td th:text="${user.email}"></td>
+	                <!-- Add more table cells for other properties -->
+	            </tr>
+                <!-- Add more rows for other users -->
+            </tbody>
+        </table>
+        
+        <br><br><br>
+        
+        <a class="custom-button" href="/">Home</a>
+    </div>
+</body>
+</html>
